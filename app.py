@@ -30,13 +30,10 @@ st.markdown("""
 st.markdown("<div class='title'>🎬 Movie Recommendation System</div>", unsafe_allow_html=True)
 
 # 🎯 Movie dropdown
-search_query = st.text_input("🔍 Search Movie Series")
-
-if search_query:
-    recommendations = recommend(search_query)
+selected_movie = st.selectbox("Choose a movie", movies['title'].values)
 
 # 🔑 TMDB API KEY (PUT YOUR KEY HERE)
-API_KEY = "Yf91b3dec6078903951125470f6f28507"
+API_KEY = "f91b3dec6078903951125470f6f28507"
 
 # 🎥 Fetch poster
 def fetch_poster(movie_name):

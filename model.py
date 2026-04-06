@@ -25,12 +25,28 @@ def get_all_genres():
 
 # 🎯 Filter 1: Recommend by Movie Name
 def recommend(movie_name):
-    movie_name = movie_name.lower()
-    # Clean the search string
-    keyword = re.sub(r'[^a-zA-Z0-9 ]', '', movie_name)
-    # Find movies containing that keyword
-    filtered = movies[movies['title'].str.lower().str.contains(keyword, na=False)]
-    return filtered['title'].head(10).tolist()
+    # 1. Find the selected movie in our database
+    selected_movie_row = movies[movies['title'] == movie_name]
+    
+    if selected_movie_row.empty:
+        return []
+
+    # 2. Get the genres of that movie (e.g., "Action|Adventure")
+    selected_genres = selected_movie_row.iloc[0]['genres']
+    
+    # 3. Find other movies that share at least one genre
+    # We exclude the selected movie itself so it doesn't recommend itself
+    genre_list = selected_genres.split('|')
+    
+    # Create a filter: check if any of the movie's genres are in our target list
+    pattern = '|'.join(genre_list)
+    recommendations = movies[
+        (movies['genres'].str.contains(pattern, case=False, na=False)) & 
+        (movies['title'] != movie_name)
+    ]
+    
+    # 4. Return the top 10 results
+    return recommendations['title'].head(10).tolist()
 
 # 🎯 Filter 2: Recommend by Selected Genre
 def recommend_by_genre(selected_genre):

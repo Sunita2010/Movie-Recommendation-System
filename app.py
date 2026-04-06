@@ -42,8 +42,8 @@ else:
     selected_genre = st.selectbox("Choose a genre", all_genres)
 
 # ✅ Show selected genres (correct syntax)
-if selected_genres:
-    st.write("Selected Genres:", ", ".join(selected_genres))
+if mode == "By Genre":
+    st.write("Selected Genre:", selected_genre)
 
 # 🔑 TMDB API KEY (PUT YOUR KEY HERE)
 API_KEY = "f91b3dec6078903951125470f6f28507"

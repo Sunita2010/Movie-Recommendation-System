@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-from model import recommend, movies
+from model import recommend, movies, get_all_genres
 
 # 🎬 Page config
 st.set_page_config(page_title="Movie Recommender", layout="wide")
@@ -31,6 +31,15 @@ st.markdown("<div class='title'>🎬 Movie Recommendation System</div>", unsafe_
 
 # 🎯 Movie dropdown
 selected_movie = st.selectbox("Choose a movie", movies['title'].values)
+# 🎭 Genre Selection
+all_genres = get_all_genres()
+
+selected_genres = st.multiselect(
+    "🎬 Select Genres (Optional)",
+    all_genres
+    if selected_genres:
+    st.write("Selected Genres:", ", ".join(selected_genres))
+)
 
 # 🔑 TMDB API KEY (PUT YOUR KEY HERE)
 API_KEY = "f91b3dec6078903951125470f6f28507"
@@ -57,7 +66,7 @@ def get_trailer(movie_name):
 # 🎯 Button
 if st.button("Recommend"):
 
-    recommendations = recommend(selected_movie)
+    recommendations = recommend(selected_movie, selected_genres)
 
     st.subheader("🎥 Recommended Movies")
 

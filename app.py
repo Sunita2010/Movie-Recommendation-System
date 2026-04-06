@@ -66,5 +66,5 @@ if recommendations:
             st.markdown(f"<div class='movie-name'>{movie}</div>", unsafe_allow_html=True)
             st.markdown(f"[▶️ Trailer](https://www.youtube.com/results?search_query={movie}+trailer)")
             st.markdown("</div>", unsafe_allow_html=True)
-elif st.button and search_target:
+elif search_target and st.session_state.get('button_clicked', False):
     st.warning("No movies found for this selection.")

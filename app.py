@@ -30,7 +30,14 @@ st.markdown("""
 st.markdown("<div class='title'>🎬 Movie Recommendation System</div>", unsafe_allow_html=True)
 
 # 🎯 Select Mode
-mode = st.radio("Choose Recommendation Type", ["By Movie", "By Genre"])
+# 🎯 Select Mode (Dropdown)
+# 🎯 Select Mode (Dropdown)
+mode = st.selectbox(
+    "Choose Recommendation Type",
+    ["By Movie", "By Genre"]
+)
+
+st.info(f"Mode Selected: {mode}")
 
 # 🎬 Movie Option
 if mode == "By Movie":

@@ -37,9 +37,11 @@ all_genres = get_all_genres()
 selected_genres = st.multiselect(
     "🎬 Select Genres (Optional)",
     all_genres
-    if selected_genres:
-    st.write("Selected Genres:", ", ".join(selected_genres))
 )
+
+# ✅ Show selected genres (correct syntax)
+if selected_genres:
+    st.write("Selected Genres:", ", ".join(selected_genres))
 
 # 🔑 TMDB API KEY (PUT YOUR KEY HERE)
 API_KEY = "f91b3dec6078903951125470f6f28507"

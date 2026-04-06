@@ -29,15 +29,17 @@ st.markdown("""
 # 🎬 Title
 st.markdown("<div class='title'>🎬 Movie Recommendation System</div>", unsafe_allow_html=True)
 
-# 🎯 Movie dropdown
-selected_movie = st.selectbox("Choose a movie", movies['title'].values)
-# 🎭 Genre Selection
-all_genres = get_all_genres()
+# 🎯 Select Mode
+mode = st.radio("Choose Recommendation Type", ["By Movie", "By Genre"])
 
-selected_genres = st.multiselect(
-    "🎬 Select Genres (Optional)",
-    all_genres
-)
+# 🎬 Movie Option
+if mode == "By Movie":
+    selected_movie = st.selectbox("Choose a movie", movies['title'].values)
+
+# 🎭 Genre Option
+else:
+    all_genres = get_all_genres()
+    selected_genre = st.selectbox("Choose a genre", all_genres)
 
 # ✅ Show selected genres (correct syntax)
 if selected_genres:
@@ -66,12 +68,20 @@ def get_trailer(movie_name):
     return f"https://www.youtube.com/results?search_query={movie_name}+trailer"
 
 # 🎯 Button
-if st.button("Recommend"):
+# 🎯 Select Mode
+mode = st.radio("Choose Recommendation Type", ["By Movie", "By Genre"])
+st.info(f"Mode Selected: {mode}")
 
-    recommendations = recommend(selected_movie, selected_genres)
+# 🎬 Movie Option
+if mode == "By Movie":
+    selected_movie = st.selectbox("Choose a movie", movies['title'].values)
+
+# 🎭 Genre Option
+else:
+    all_genres = get_all_genres()
+    selected_genre = st.selectbox("Choose a genre", all_genres)
 
     st.subheader("🎥 Recommended Movies")
-
     cols = st.columns(5)
 
     for i in range(10):
